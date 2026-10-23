@@ -3,6 +3,7 @@
 All internal links are root-relative (/about/, /play/x/), so the site works on any domain unchanged."""
 import os, html, json, datetime, urllib.parse
 SITE_URL = os.environ.get('SITE_URL', 'https://songyisong88.github.io')
+LINE_OA = 'https://line.me/R/ti/p/@455hmisa'
 GAMES_BASE = '/teepuan-games/'   # games stay in the songyisong88/teepuan-games repo (same origin)
 OUT = os.path.dirname(os.path.abspath(__file__))
 TODAY = datetime.date.today().isoformat()
@@ -17,8 +18,8 @@ GAMES = [
  ('umbramble-99','เดินบนเงา','Umbramble \'99','puzzle','เลื่อนโคมไฟให้เงากลายเป็นทางเดิน','Move the lamps so shadows become paths',('ใหม่','NEW')),
  ('clawtron-95','ตู้คีบตุ๊กตา','Clawtron \'95','timing','คีบตุ๊กตาสะสมให้ครบอัลบั้ม','Grab plushies and complete your album',('ใหม่','NEW')),
  ('mergetron-96','ร้านตู้เกมรวมร่าง','Mergetron \'96','strategy','รวมตู้เกม 18 ระดับ เก็บเงินแม้ไม่เล่น','Merge arcade cabinets through 18 levels',None),
- ('bulwark','ป้อมปราการสุดท้าย','Last Bulwark','action','ยิงเอาตัวรอด สู้บอส 3 เฟส','Auto-shooter survival with a 3-phase boss',('ฮิต','HOT')),
- ('steel-stack','หอคอยเหล็ก','Steel Stack','timing','แตะให้ถูกจังหวะ ซ้อนให้สูงที่สุด','Tap on time and stack as high as you can',('ฮิต','HOT')),
+ ('bulwark','ป้อมปราการสุดท้าย','Last Bulwark','action','ยิงเอาตัวรอด สู้บอส 3 เฟส','Auto-shooter survival with a 3-phase boss',None),
+ ('steel-stack','หอคอยเหล็ก','Steel Stack','timing','แตะให้ถูกจังหวะ ซ้อนให้สูงที่สุด','Tap on time and stack as high as you can',None),
  ('frog','กบข้ามถนน','Klong Hop \'94','action','หลบรถ ขี่ขอนไม้ข้ามคลอง','Dodge cars and ride logs across the canal',None),
  ('pinball','พินบอลยุค 90','Deep Core Pinball','action','ตีลูกเจาะลงสู่แกนโลก','Smash the ball down to the Earth\'s core',None),
  ('snake','งูมือถือยุค 90','Snake \'98','timing','งูกินจุด 3 โหมด','Classic snake with 3 modes',None),
@@ -65,7 +66,7 @@ def top(active=''):
 <button class="lang" type="button" aria-label="Language / ภาษา">{bi('EN','ไทย')}</button></header><nav class="nav">{nav}</nav>'''
 
 def foot():
-    return f'''<footer class="foot"><nav><a href="/">{bi('หน้าแรก','Home')}</a><a href="/about/">{bi('เกี่ยวกับเรา','About')}</a><a href="/privacy/">{bi('นโยบายความเป็นส่วนตัว','Privacy Policy')}</a><a href="/terms/">{bi('ข้อตกลงการใช้งาน','Terms')}</a><a href="/contact/">{bi('ติดต่อเรา','Contact')}</a><button class="lk" type="button" data-consent-open>{bi('ตั้งค่าคุกกี้','Cookie settings')}</button></nav>
+    return f'''<footer class="foot"><nav><a href="/">{bi('หน้าแรก','Home')}</a><a href="/about/">{bi('เกี่ยวกับเรา','About')}</a><a href="/privacy/">{bi('นโยบายความเป็นส่วนตัว','Privacy Policy')}</a><a href="/terms/">{bi('ข้อตกลงการใช้งาน','Terms')}</a><a href="/contact/">{bi('ติดต่อเรา','Contact')}</a><a href="{LINE_OA}" target="_blank" rel="noopener">{bi('เพิ่มเพื่อน LINE OA ห้องเกม ไครอน','Add LINE OA ห้องเกม ไครอน')}</a><button class="lk" type="button" data-consent-open>{bi('ตั้งค่าคุกกี้','Cookie settings')}</button></nav>
 {bi('เล่นฟรี · © 2026 Kairon Arcade','Free to play · © 2026 Kairon Arcade','div')}</footer>
 <div class="consent" id="consent" role="dialog" aria-live="polite"><p>{bi('เว็บนี้ใช้คุกกี้และพื้นที่เก็บข้อมูลในเครื่อง เพื่อจำเซฟเกม ภาษา และ (ในอนาคต) แสดงโฆษณาจาก Google และพาร์ทเนอร์ ','We use cookies and local storage to keep your game saves and language, and (in future) to show ads from Google and partners. ')}<a href="/privacy/">{bi('อ่านนโยบาย','Read policy')}</a></p>
 <div class="row"><button class="yes" type="button">{bi('ยอมรับ','Accept')}</button><button class="no" type="button">{bi('ไม่ยอมรับ','Decline')}</button></div></div>
@@ -203,8 +204,8 @@ f'''{UPDE}<h2>1. Use</h2><p>All games are free for personal entertainment. Using
 <h2>5. Changes</h2><p>We may add, remove or change games and these terms at any time.</p>''')
 
 page('/contact/','contact','ติดต่อเรา','Contact us','ติดต่อ Kairon Arcade ห้องเกม ไครอน',
-'''<p>ติดต่อผ่าน LINE OA ห้องเกม ไครอน</p><p>แจ้งปัญหาการเล่น เสนอไอเดียเกมใหม่ หรือติดต่อเรื่องลิขสิทธิ์และความเป็นส่วนตัวได้ที่ช่องทางนี้</p>''',
-'''<p>Contact us via the ห้องเกม ไครอน LINE Official Account.</p><p>Report a bug, suggest a game idea, or reach us about copyright or privacy through this channel.</p>''')
+f'''<p>ติดต่อผ่าน LINE OA ห้องเกม ไครอน</p><p style="margin:14px 0"><a class="cta big" href="{LINE_OA}" target="_blank" rel="noopener">เพิ่มเพื่อน LINE OA ห้องเกม ไครอน</a></p><p class="upd">LINE ID: @455hmisa</p><p>แจ้งปัญหาการเล่น เสนอไอเดียเกมใหม่ หรือติดต่อเรื่องลิขสิทธิ์และความเป็นส่วนตัวได้ที่ช่องทางนี้</p>''',
+f'''<p>Contact us via the ห้องเกม ไครอน LINE Official Account.</p><p style="margin:14px 0"><a class="cta big" href="{LINE_OA}" target="_blank" rel="noopener">Add LINE OA ห้องเกม ไครอน</a></p><p class="upd">LINE ID: @455hmisa</p><p>Report a bug, suggest a game idea, or reach us about copyright or privacy through this channel.</p>''')
 
 # ---------- 404
 write('/404.html', head('ไม่พบหน้านี้ · Page not found | Kairon Arcade','ไม่พบหน้าที่ค้นหา','/404.html',noindex=True) + top() + f'''

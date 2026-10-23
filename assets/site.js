@@ -6,8 +6,13 @@
  if(/[?&]lang=en/.test(location.search))lang='en';
  function setLang(l){lang=l;h.setAttribute('data-lang',l);h.lang=l;ls('ka_lang',l)}
  setLang(lang);
- // ad test mode: config or ?adtest=1
- if(C.adTest||/[?&]adtest=1/.test(location.search))h.classList.add('ad-test');
+ // ad test mode: placeholder boxes only when config says so (adTest:false hides them all)
+ if(C.adTest===true)h.classList.add('ad-test');
+ // real ads: only with a publisher ID AND on an allowlisted hostname (our own domain)
+ var host=location.hostname.toLowerCase();
+ window.KA_ADS_ALLOWED=!!(C.adClient&&(C.adHosts||[]).map(function(x){return String(x).toLowerCase()}).indexOf(host)>-1);
+ if(window.KA_ADS_ALLOWED)h.classList.add('ads-on');
+ /* Later (after approval): load the Google ad script here only if KA_ADS_ALLOWED is true. Nothing is loaded now. */
  d.addEventListener('DOMContentLoaded',function(){
   d.querySelectorAll('.lang').forEach(function(b){b.onclick=function(){setLang(lang==='en'?'th':'en')}});
   // consent banner (stored in localStorage: ka_consent = granted | denied)
