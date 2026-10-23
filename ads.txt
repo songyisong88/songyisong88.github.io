@@ -1,0 +1,4 @@
+# ads.txt for Kairon Arcade (ห้องเกม ไครอน)
+# PLACEHOLDER - no ad network is connected yet.
+# After Google AdSense is approved, replace pub-XXXXXXXXXXXXXXXX with the real publisher ID and remove the leading "# " on the line below.
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
